@@ -5,15 +5,6 @@ export const obtenerUsuarios = async () => {
         return result.rows;
 };
 
-export const obtenerPorNombre = async (nombre) => {
-    const buscar = `%${nombre}%`;
-    const result = await pool.query(
-        "SELECT * FROM usuarios WHERE nombre ILIKE $1 OR apellido ILIKE $1",
-        [buscar]
-    );
-    return result.rows;
-};
-
 export const obtenerUsuariosPorApellido = async (apellido) => {
   const buscar = `%${apellido}%`;
   const result = await pool.query(
@@ -40,16 +31,15 @@ export const crearUsuario = async (rolId, nombreUsuario, clave, nombre, apellido
         return result.rows[0];
 };
 
-export const actualizarUsuario = async (usuario) => {
-    const { usuarioId, rolId, nombreUsuario, clave, nombre, apellido } = usuario;
+export const actualizarUsuario = async ( usuarioId, rolId, nombreUsuario, clave, nombre, apellido )=> {
+    const values= [ usuarioId, rolId, nombreUsuario, clave, nombre, apellido];
     const query = `UPDATE usuarios
                    SET rolId=$1, nombreUsuario=$2, clave=$3, nombre=$4, apellido=$5
                    WHERE usuarioId=$6
                    RETURNING *;`;
 
-        const result = await pool.query(query, [rolId, nombreUsuario, clave, nombre, apellido, usuarioId]);
-        if (result.rowCount === 0) throw new Error("Usuario no encontrado");
-        return result.rows[0];
+        const result = await pool.query(query, values);
+        return result;
 };
 
 export const eliminarUsuario = async (usuarioId) => {
