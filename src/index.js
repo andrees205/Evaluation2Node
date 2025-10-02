@@ -1,8 +1,12 @@
 import express from 'express';
 
 import comentarioRoutes from './routes/comentarioRoutes.js';
+
 import userRoutes from './routes/usersRoutes.js';
 
+import calificacionesRoutes from './routes/calificacionRoutes.js';
+
+import userRoutes from './routes/usersRoutes.js';
 import dotenv from 'dotenv';
 import { errorHandler } from './Middlewares/errorHandler.js';
 dotenv.config();
@@ -16,8 +20,10 @@ app.get('/', (req, res) => {
 });
 
 app.use('/comentarios', comentarioRoutes);
-app.use('/users', userRoutes);
 
+app.use('/calificaciones', calificacionesRoutes);
+
+app.use('/users', userRoutes);
 app.use(errorHandler);
 
 app.listen(process.env.PORT, () => {
