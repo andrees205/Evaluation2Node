@@ -5,7 +5,7 @@ export const getAllUsers = async (req, res, next) => {
         const usuarios = await userService.obtenerUsuarios();
         res.json(usuarios);
     } catch (err) {
-        errorHandler();
+        return next(err);
     }
 };
 
@@ -15,7 +15,7 @@ export const createUser = async (req, res, next) => {
         const newUser = await userService.crearUsuario(rolId, nombreUsuario, clave, nombre, apellido);
         res.status(201).json(newUser);
     } catch (err) {
-        errorHandler();
+        return next(err);
     }
 };
 
@@ -34,7 +34,7 @@ export const updateUser = async (req, res, next) => {
             usuario: updatedUser
         });
     } catch (err) {
-        errorHandler();
+        return next(err);
     }
 };
 
@@ -44,6 +44,6 @@ export const deleteUser = async (req, res, next) => {
         const result = await userService.eliminarUsuario(usuarioId);
         res.status(200).json(result);
     } catch (err) {
-        errorHandler();
+        return next(err);
     }
 };
