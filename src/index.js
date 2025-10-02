@@ -1,6 +1,7 @@
 import express from 'express';
 
 import comentarioRoutes from './routes/comentarioRoutes.js';
+import calificacionesRoutes from './routes/calificacionRoutes.js';
 
 import dotenv from 'dotenv';
 dotenv.config();
@@ -15,6 +16,7 @@ app.get('/', (req, res) => {
 
 
 app.use('/comentarios', comentarioRoutes);
+app.use('/calificaciones', calificacionesRoutes);
 
 
 app.listen(process.env.PORT, () => {
