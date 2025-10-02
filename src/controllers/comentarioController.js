@@ -1,5 +1,5 @@
 
-
+import { errorHandler } from "../Middlewares/errorHandler.js";
 import * as comentariosServices from "../services/comentarioService.js";
 
 
@@ -9,7 +9,7 @@ export const getAllComentarios = async (req, res, next) => {
     const comentarios = await comentariosServices.getAllComentarios();
     res.json(comentarios);
   } catch (err) {
-    return next(err);
+    errorHandler();
   }
 };
 
@@ -20,7 +20,7 @@ export const getComentariosByPublicacion = async (req, res, next) => {
     const comentarios = await comentariosServices.getComentariosByPublicacion(publicacionId);
     res.json(comentarios);
   } catch (err) {
-    return next(err);
+    errorHandler();
   }
 };
 
@@ -31,7 +31,7 @@ export const getComentariosByUsuario = async (req, res, next) => {
     const comentarios = await comentariosServices.getComentariosByUsuario(usuarioId);
     res.json(comentarios);
   } catch (err) {
-    return next(err);
+    errorHandler();
   }
 };
 
@@ -47,7 +47,7 @@ export const postCrearComentario = async (req, res, next) => {
     );
     res.status(201).json(nuevoComentario);
   } catch (err) {
-    return next(err);
+    errorHandler();
   }
 };
 
@@ -71,7 +71,7 @@ export const putActualizarComentario = async (req, res, next) => {
       comentario: result,
     });
   } catch (err) {
-    return next(err);
+    errorHandler();
   }
 };
 
@@ -82,6 +82,6 @@ export const eliminarComentario = async (req, res, next) => {
     const result = await comentariosServices.eliminarComentario(comentarioId);
     res.status(200).json(result);
   } catch (err) {
-    return next(err);
+    errorHandler();
   }
 };
