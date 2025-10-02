@@ -31,16 +31,22 @@ export const crearUsuario = async (rolId, nombreUsuario, clave, nombre, apellido
         return result.rows[0];
 };
 
-export const actualizarUsuario = async ( usuarioId, rolId, nombreUsuario, clave, nombre, apellido )=> {
-    const values= [ usuarioId, rolId, nombreUsuario, clave, nombre, apellido];
-    const query = `UPDATE usuarios
-                   SET rolId=$1, nombreUsuario=$2, clave=$3, nombre=$4, apellido=$5
-                   WHERE usuarioId=$6
-                   RETURNING *;`;
+export const actualizarUsuario = async (usuarioId, rolId, nombreUsuario, clave, nombre, apellido) => {
+  const values = [rolId, nombreUsuario, clave, nombre, apellido, usuarioId];
 
-        const result = await pool.query(query, values);
-        return result;
+  const query = `
+    UPDATE usuarios
+    SET rolId=$1, nombreUsuario=$2, clave=$3, nombre=$4, apellido=$5
+    WHERE usuarioId=$6
+    RETURNING *;
+  `;
+
+  const result = await pool.query(query, values);
+  if (result.rowCount === 0) throw new Error("Usuario no encontrado");
+  return result.rows[0];
 };
+
+
 
 export const eliminarUsuario = async (usuarioId) => {
 

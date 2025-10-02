@@ -87,7 +87,6 @@ export const eliminarComentario = async (req, res, next) => {
 };
 
 
-//top usuarois por cantidad de comentarios
 export const getTopUsuarios = async (req, res, next) => {
   try {
     const topN = parseInt(req.params.n);

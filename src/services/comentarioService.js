@@ -68,7 +68,6 @@ export const eliminarComentario = async (comentarioId) => {
 };
 
 
-//usuarios con más comentarios
 export const getTopUsuarios = async (topN) => {
   const query = `
     SELECT u.usuarioId, u.nombreUsuario, COUNT(c.comentarioId) AS totalComentarios

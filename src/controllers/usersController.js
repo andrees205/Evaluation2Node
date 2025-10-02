@@ -40,28 +40,29 @@ export const createUser = async (req, res, next) => {
 };
 
 export const updateUser = async (req, res, next) => {
-    try {
-        const { usuarioId } = req.params;
-        const { rolId, nombreUsuario, clave, nombre, apellido } = req.body;
-        const updatedUser = await userService.actualizarUsuario({ usuarioId, rolId, nombreUsuario, clave, nombre, apellido });
+  try {
+    const { id_usuario} = req.params;
+    const { rolId, nombreUsuario, clave, nombre, apellido } = req.body;
 
-        if (!updatedUser) {
-            throw new Error("Usuario no encontrado");
-        }
+    const updatedUser = await userService.actualizarUsuario(
+      id_usuario, rolId, nombreUsuario, clave, nombre, apellido
+    );
 
-        res.status(200).json({
-            message: "Usuario actualizado correctamente",
-            usuario: updatedUser
-        });
-    } catch (err) {
-        return next(err);
-    }
+    res.status(200).json({
+      message: "Usuario actualizado correctamente",
+      usuario: updatedUser
+    });
+  } catch (err) {
+    return next(err);
+  }
 };
+
+
 
 export const deleteUser = async (req, res, next) => {
     try {
-        const { usuarioId } = req.params;
-        const result = await userService.eliminarUsuario(usuarioId);
+        const { id_usuario } = req.params;
+        const result = await userService.eliminarUsuario(id_usuario);
         res.status(200).json(result);
     } catch (err) {
         return next(err);
