@@ -2,6 +2,8 @@ import { Router } from "express";
 
 import * as comentariosControllers from "../controllers/comentarioController.js";
 
+import { runValidations, createComentarioValidators } from "../Middlewares/validators.js";
+
 const router = Router();
 
 //todos los comentarios
@@ -14,7 +16,7 @@ router.get("/publicacion/:publicacionId", comentariosControllers.getComentariosB
 router.get("/usuario/:usuarioId", comentariosControllers.getComentariosByUsuario);
 
 //crear un comentario
-router.post("/", comentariosControllers.postCrearComentario);
+router.post("/", comentariosControllers.postCrearComentario, runValidations(createComentarioValidators));
 
 //actualizar un comentario
 router.put("/:comentarioId", comentariosControllers.putActualizarComentario);

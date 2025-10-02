@@ -28,3 +28,42 @@ export const createUserValidators = [
     .isLength({ min: 6 })
     .withMessage("La contraseña debe tener al menos 6 caracteres"),
 ];
+
+export const createCalificacionValidators = [
+  body("publicacionId")
+    .notEmpty()
+    .withMessage("El ID de la publicación es obligatorio")
+    .isInt({ gt: 0 })
+    .withMessage("El ID de la publicación debe ser un número entero positivo"),
+  
+  body("usuarioId")
+    .notEmpty()
+    .withMessage("El ID del usuario es obligatorio")
+    .isInt({ gt: 0 })
+    .withMessage("El ID del usuario debe ser un número entero positivo"),
+
+  body("calificacion")
+    .notEmpty()
+    .withMessage("La calificación es obligatoria")
+    .isInt({ min: 1, max: 5 })
+    .withMessage("La calificación debe ser un número entre 1 y 5"),
+];
+
+export const createComentarioValidators = [
+  body("publicacionId")
+    .notEmpty()
+    .withMessage("El ID de la publicación es obligatorio")
+    .isInt({ gt: 0 })
+    .withMessage("El ID de la publicación debe ser un número entero positivo"),
+
+  body("usuarioId")
+    .notEmpty()
+    .withMessage("El ID del usuario es obligatorio")
+    .isInt({ gt: 0 })
+    .withMessage("El ID del usuario debe ser un número entero positivo"),
+
+  body("comentario")
+    .trim()
+    .notEmpty()
+    .withMessage("El comentario no puede estar vacío")
+];

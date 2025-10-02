@@ -3,13 +3,14 @@ import * as calificacionControllers from "../controllers/calificacionController.
 
 const router = Router();
 
+import { runValidations, createCalificacionValidators } from "../Middlewares/validators.js";
 //todas las calificaciones
 router.get("/", calificacionControllers.getAllCalificaciones);
 
 //calificaciones por id de publicación
 router.get("/publicacion/:publicacionId", calificacionControllers.getCalificacionesByPublicacion);
 
-router.post("/", calificacionControllers.postCrearCalificacion);
+router.post("/", calificacionControllers.postCrearCalificacion, runValidations(createCalificacionValidators ));
 
 router.put("/:calificacionId", calificacionControllers.putActualizarCalificacion);
 
