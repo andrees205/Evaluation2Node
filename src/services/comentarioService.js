@@ -66,3 +66,18 @@ export const eliminarComentario = async (comentarioId) => {
     comentario: comentarioAEliminar.rows[0],
   };
 };
+
+
+//usuarios con más comentarios
+export const getTopUsuarios = async (topN) => {
+  const query = `
+    SELECT u.usuarioId, u.nombreUsuario, COUNT(c.comentarioId) AS totalComentarios
+    FROM usuarios u
+    LEFT JOIN comentarios c ON u.usuarioId = c.usuarioId
+    GROUP BY u.usuarioId, u.nombreUsuario
+    ORDER BY totalComentarios DESC
+    LIMIT $1;
+  `;
+  const result = await pool.query(query, [topN]);
+  return result.rows;
+};

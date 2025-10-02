@@ -9,6 +9,26 @@ export const getAllUsers = async (req, res, next) => {
     }
 };
 
+export const getUsuariosPorApellido = async (req, res, next) => {
+  try {
+    const { apellido } = req.params;
+    const usuarios = await userService.obtenerUsuariosPorApellido(apellido);
+    res.status(200).json(usuarios);
+  } catch (err) {
+    return next(err);
+  }
+};
+
+export const getUsuariosPorRol = async (req, res, next) => {
+  try {
+    const { rolId } = req.params;
+    const usuarios = await userService.obtenerUsuariosPorRol(rolId);
+    res.status(200).json(usuarios);
+  } catch (err) {
+    return next(err);
+  }
+};
+
 export const createUser = async (req, res, next) => {
     try {
         const { rolId, nombreUsuario, clave, nombre, apellido } = req.body;

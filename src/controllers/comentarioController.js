@@ -85,3 +85,20 @@ export const eliminarComentario = async (req, res, next) => {
     errorHandler();
   }
 };
+
+
+//top usuarois por cantidad de comentarios
+export const getTopUsuarios = async (req, res, next) => {
+  try {
+    const topN = parseInt(req.params.n);
+    if (isNaN(topN) || topN <= 0) {
+      return res.status(400).json({ message: "El parámetro 'n' debe ser un número positivo" });
+    }
+
+    const topUsuarios = await comentariosServices.getTopUsuarios(topN);
+    res.status(200).json(topUsuarios);
+  } catch (err) {
+    return next(err);
+  }
+};
+

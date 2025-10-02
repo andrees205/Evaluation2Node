@@ -7,6 +7,8 @@ import { runValidations, createUserValidators } from "../Middlewares/validators.
 const router = Router();
 
 router.get('/', usersController.getAllUsers);
+router.get("/apellido/:apellido", usersController.getUsuariosPorApellido);
+router.get("/rol/:rolId", usersController.getUsuariosPorRol);
 
 router.post('/', usersController.createUser, runValidations(createUserValidators));
 
